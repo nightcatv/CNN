@@ -14,7 +14,7 @@ def train():
 	default_classes = 10
 	
 	# Load datasets
-	dataset = int(input("Choose Dataset:\n[1] MNIST\n[2] SDUMLA\n[0] Quit\n>> "))
+	dataset = int(input("Choose Dataset:\n[1] MNIST\n[2] SDUMLA\n[3] FV-USM\n[0] Quit\n>> "))
 	while True:
 		if dataset == 0:
 			exit()
@@ -23,10 +23,9 @@ def train():
 			break
 		elif dataset == 2:
 			(x_train, y_train), (x_test, y_test) = load_dataset("SDUMLA")
-			default_width = 320
-			default_width = 240
-			default_classes = 106
 			break
+		elif dataset == 3:
+			(x_train, y_train), (x_test, y_test) = load_dataset("FV-USM")
 		else:
 			dataset = int(input("YOU NEED CHOOSE ONE DATASET!\n[1] MNIST\n[2] SDUMLA\n[0] Quit\n>> "))
 
@@ -104,7 +103,35 @@ def load_dataset(dataset):
 		y_test = np.array([np.array(l) for l in label_test])
 
 		return (x_train, y_train), (x_test, y_test)
-	elif dataset == "FV_USM":
-		return mnist.load_data()
+	elif dataset == "FV-USM":
+		path = "./Dataset/FV-USM/"
+		sessions = ["1st_session/extractedvein/vein", "2nd_session/extractedvein/vein"]
+		testcase = "001"
+		filetype = ".jpg"
+		
+		filelist_train = []
+		filelist_test = []
+		label_train = []
+		label_test = []
+
+		for session in sessions:
+			for i in range(123):
+				for j in range(1, 5):
+					for index in range(1, 7):
+						filename = path + session + testcase + "_" + str(j) + "/0" + str(index) + filetype
+						if index < 5:
+							filelist_train.append(filename)
+							label_train.append(testcase)
+						else:
+							filelist_test.append(filename)
+							label_test.append(testcase)
+				testcase = "0" * (3 - len(str(i + 1))) + str(i + 1)
+
+		x_train = np.array([np.array(Image.open(f)) for f in filelist_train])
+		y_train = np.array([np.array(l) for l in label_train])
+		x_test = np.array([np.array(Image.open(f)) for f in filelist_test])
+		y_test = np.array([np.array(l) for l in label_test])
+	
+		return (x_train, y_train), (x_test, y_test)
 	elif dataset == "MNIST":
 		return mnist.load_data()
