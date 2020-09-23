@@ -52,7 +52,6 @@ def train():
 	y_train = np_utils.to_categorical(y_train, num_classes = default_classes)
 	y_test = np_utils.to_categorical(y_test, num_classes = default_classes)
 	
-
 	# Select model
 	use = int(input("Choose model:\n[1] LeNet\n[2] AlexNet\n[3] VGG16\n[4] GoogLeNet V1\n[5] ResNet 34\n[0] Quit\n>> "))
 	while True:
@@ -105,11 +104,15 @@ def load_dataset(dataset):
 						if index < 5:
 							filelist_train.append(filename)
 							label_train.append(testcase)
+							label_train.append(testcase)
+							label_train.append(testcase)
 						else:
 							filelist_test.append(filename)
 							label_test.append(testcase)
+							label_test.append(testcase)
+							label_test.append(testcase)
 			testcase = "0" * (3 - len(str(i + 1))) + str(i + 1)
-
+		
 		x_train = np.array([np.array(Image.open(f)) for f in filelist_train])
 		y_train = np.array([np.array(l) for l in label_train])
 		x_test = np.array([np.array(Image.open(f)) for f in filelist_test])
@@ -135,8 +138,12 @@ def load_dataset(dataset):
 						if index < 5:
 							filelist_train.append(filename)
 							label_train.append(testcase)
+							label_train.append(testcase)
+							label_train.append(testcase)
 						else:
 							filelist_test.append(filename)
+							label_test.append(testcase)
+							label_test.append(testcase)
 							label_test.append(testcase)
 				testcase = "0" * (3 - len(str(i + 1))) + str(i + 1)
 
