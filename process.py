@@ -12,6 +12,8 @@ def train():
 	default_height = 28
 	default_depth = 1
 	default_classes = 10
+	default_epochs = 5
+	default_batch_size = 32
 	
 	# Load datasets
 	dataset = int(input("Choose Dataset:\n[1] MNIST\n[2] SDUMLA\n[3] FV-USM\n[0] Quit\n>> "))
@@ -22,10 +24,21 @@ def train():
 			(x_train, y_train), (x_test, y_test) = load_dataset("MNIST")
 			break
 		elif dataset == 2:
-			(x_train, y_train), (x_test, y_test) = load_dataset("SDUMLA")
+			(x_train, y_train), (x_test, y_test) = load_dataset("SDUMLA")	# 106 * 2 * 3 * 6 = 3816 images
+			default_width = 320
+			default_height = 240
+			default_classes = 0
+			default_epochs = 1
+			default_batch_size = 106
 			break
 		elif dataset == 3:
-			(x_train, y_train), (x_test, y_test) = load_dataset("FV-USM")
+			(x_train, y_train), (x_test, y_test) = load_dataset("FV-USM")	# 2 * 123 * 4 * 6 = 5904 images
+			default_width = 100
+			default_height = 300
+			default_classes = 0
+			default_epochs = 1
+			default_batch_size = 123
+			break
 		else:
 			dataset = int(input("YOU NEED CHOOSE ONE DATASET!\n[1] MNIST\n[2] SDUMLA\n[0] Quit\n>> "))
 
@@ -34,7 +47,7 @@ def train():
 	x_test = x_test.reshape(-1, default_width, default_height, default_depth)		# expend dimension for 1 channel image
 	x_train = x_train / 255		# normalize
 	x_test = x_test / 255		# normalize
-
+	
 	# One hot encoding
 	y_train = np_utils.to_categorical(y_train, num_classes = default_classes)
 	y_test = np_utils.to_categorical(y_test, num_classes = default_classes)
@@ -66,7 +79,7 @@ def train():
 	model.compile(Adam(lr = 0.001, beta_1 = 0.9, beta_2 = 0.999, epsilon = 1e-08), loss = 'categorical_crossentropy', metrics = ['accuracy'])
 
 	# Start training
-	History = model.fit(x_train, y_train, epochs = 5, batch_size = 32, validation_data = (x_test, y_test))
+	History = model.fit(x_train, y_train, epochs = default_epochs, batch_size = default_batch_size, validation_data = (x_test, y_test))
 
 	return History
 
