@@ -28,16 +28,12 @@ def train():
 			default_width = 320
 			default_height = 240
 			default_classes = 0
-			default_epochs = 1
-			default_batch_size = 106
 			break
 		elif dataset == 3:
 			(x_train, y_train), (x_test, y_test) = load_dataset("FV-USM")	# 2 * 123 * 4 * 6 = 5904 images
 			default_width = 100
 			default_height = 300
 			default_classes = 0
-			default_epochs = 1
-			default_batch_size = 123
 			break
 		else:
 			dataset = int(input("YOU NEED CHOOSE ONE DATASET!\n[1] MNIST\n[2] SDUMLA\n[0] Quit\n>> "))
