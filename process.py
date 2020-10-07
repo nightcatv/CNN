@@ -3,6 +3,7 @@ import keras
 from keras.datasets import mnist
 from keras.utils import np_utils
 from keras.optimizers import Adam
+from keras.applications.vgg16 import VGG16
 from PIL import Image
 import models
 
@@ -60,7 +61,8 @@ def train():
 			model = models.AlexNet(default_width, default_height, default_depth, default_classes)
 			break
 		elif use == 3:
-			model = models.VGG16(default_width, default_height, default_depth, default_classes)
+			# model = models.VGG16(default_width, default_height, default_depth, default_classes)
+			model = VGG16(include_top = True, weights = 'imagenet', input_tensor = None, input_shape = None)
 			break
 		elif use == 4:
 			model = models.GoogLeNet_v1(default_width, default_height, default_depth, default_classes)
