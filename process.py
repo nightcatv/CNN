@@ -3,7 +3,6 @@ import keras
 from keras.datasets import mnist
 from keras.utils import np_utils
 from keras.optimizers import Adam
-from keras.applications.vgg16 import VGG16
 from PIL import Image
 import models
 
@@ -28,13 +27,15 @@ def train():
 			(x_train, y_train), (x_test, y_test) = load_dataset("SDUMLA")	# 106 * 2 * 3 * 6 = 3816 images
 			default_width = 320
 			default_height = 240
-			default_classes = 0
+			default_classes = 107
+			default_epochs = 10
 			break
 		elif dataset == 3:
 			(x_train, y_train), (x_test, y_test) = load_dataset("FV-USM")	# 2 * 123 * 4 * 6 = 5904 images
 			default_width = 100
 			default_height = 300
-			default_classes = 0
+			default_classes = 123
+			default_epochs = 10
 			break
 		else:
 			dataset = int(input("YOU NEED CHOOSE ONE DATASET!\n[1] MNIST\n[2] SDUMLA\n[0] Quit\n>> "))
@@ -61,8 +62,7 @@ def train():
 			model = models.AlexNet(default_width, default_height, default_depth, default_classes)
 			break
 		elif use == 3:
-			# model = models.VGG16(default_width, default_height, default_depth, default_classes)
-			model = VGG16(include_top = True, weights = 'imagenet', input_tensor = None, input_shape = None)
+			model = models.VGG16(default_width, default_height, default_depth, default_classes)
 			break
 		elif use == 4:
 			model = models.GoogLeNet_v1(default_width, default_height, default_depth, default_classes)
