@@ -72,6 +72,13 @@ def train():
 			break
 		else:	
 			use = int(input("YOU NEED CHOOSE ONE MODEL!\n[1] LeNet\n[2] AlexNet\n[3] VGG16\n[4] GoogLeNet V1\n[5] ResNet 34\n[0] Quit\n>> "))
+	
+	input_epochs = input("Input the number of epochs (default: 30)\n>> ")
+	if input_epochs == "":
+		pass
+	else:
+		default_epochs = input_epochs
+
 	model.summary()
 	model.compile(Adam(lr = 0.001, beta_1 = 0.9, beta_2 = 0.999, epsilon = 1e-08), loss = 'categorical_crossentropy', metrics = ['accuracy'])
 
