@@ -77,7 +77,7 @@ def train():
 	if input_epochs == "":
 		pass
 	else:
-		default_epochs = input_epochs
+		default_epochs = int(input_epochs)
 
 	model.summary()
 	model.compile(Adam(lr = 0.001, beta_1 = 0.9, beta_2 = 0.999, epsilon = 1e-08), loss = 'categorical_crossentropy', metrics = ['accuracy'])
